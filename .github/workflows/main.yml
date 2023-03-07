@@ -1,0 +1,48 @@
+name: Main branch - pull request approved
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+env:
+  PLUGIN_NAME: whmcs-boleto-pix
+  WORK_DIR: src
+
+jobs:
+  encode-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      # Add plugin files to a root directory
+      - name: Make plugin root directory
+        working-directory: ${{env.WORK_DIR}}
+        run: "mkdir $PLUGIN_NAME && mv -t ./$PLUGIN_NAME ./modules ./includes && ls -lah"
+
+      # Compact plugin as .zip
+      - name: Generate release .zip
+        uses: thedoctor0/zip-release@master
+        with:
+          type: "zip"
+          path: ${{ env.PLUGIN_NAME }}
+          directory: ${{env.WORK_DIR}}
+          filename: ${{ env.PLUGIN_NAME }}.zip
+
+      # Update version tag
+      - name: Set new release version
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Generate new release
+      - name: Finish release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{env.WORK_DIR}}/${{ env.PLUGIN_NAME }}.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit: "main"
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
