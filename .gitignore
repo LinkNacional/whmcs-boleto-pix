@@ -1,0 +1,6 @@
+.vscode
+vendor
+.phan
+/composer.json
+/composer.lock
+.devcontainer/devcontainer.json
