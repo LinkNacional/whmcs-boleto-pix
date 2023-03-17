@@ -1,0 +1,31 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "paghiper",
+    "license": "proprietary",
+    "category": "payments",
+    "description": {
+        "name": "PagHiper Boleto",
+        "tagline": "Para pagamentos via boleto bancário.",
+        "long": "",
+        "features": [
+            "Seu boleto sai direto no PDF anexo a fatura (funcionalidade exclusiva).",
+            "Boletos registrados conforme especificação da FEBRABAN. Baixa de pagamentos automática.",
+            "Emita boletos bancários direto do seu WHMCS."
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https://www.linknacional.com.br/",
+        "support_url": "https://github.com/LinkNacional/whmcs-boleto-pix/issues/new",
+        "email": "ticket@linknacional.com"
+    },
+    "authors": [
+        {
+            "name": "Link Nacional",
+            "homepage": "https://www.linknacional.com.br/"
+        }
+    ]
+}
