@@ -9,8 +9,6 @@ $result = (array) Capsule::table('tblinvoices')
     ->where('id', $invoiceid)
     ->first(['paymentmethod', 'total', 'status']);
 
-logModuleCall('lknhooknotification', 'result', [$result], []);
-
 if (empty($result)) {
     return;
 }
@@ -54,6 +52,10 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $json = curl_exec($ch);
 $result = json_decode($json);
+
+if ($result === null) {
+    return;
+}
 
 $transaction_id = (isset($result->transaction_id)) ? $result->transaction_id : '';
 $asset_url = (!$is_pix) ?

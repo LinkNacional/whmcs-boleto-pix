@@ -1,0 +1,30 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-gateways",
+    "name": "paghiper_pix",
+    "license": "proprietary",
+    "category": "payments",
+    "description": {
+        "name": "PagHiper PIX",
+        "tagline": "Para pagamentos via PIX.",
+        "long": "",
+        "features": [
+            "Emissão de PIX de forma simplificada (com retorno automático).",
+            "Defina o percentual de desconto por pagamento realizado por PIX"
+        ]
+    },
+    "logo": {
+        "filename": "logo.png"
+    },
+    "support": {
+        "homepage": "https://www.linknacional.com.br/",
+        "support_url": "https://github.com/LinkNacional/whmcs-boleto-pix/issues/new",
+        "email": "ticket@linknacional.com"
+    },
+    "authors": [
+        {
+            "name": "Link Nacional",
+            "homepage": "https://www.linknacional.com.br/"
+        }
+    ]
+}

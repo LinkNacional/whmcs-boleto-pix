@@ -1,44 +1,80 @@
 # WHMCS - Módulo de PIX e Boleto PagHiper
 
-OBS: Este módulo segue com suporte e atualizações independentes do repositório oficial do PagHiper.
+Compatível com PHP 7.4, PHP 8.1 e WHMCS 8.
 
-Emissão de PIX de forma simplificada ( com retorno automático ).
+* Seu boleto sai direto no PDF anexo a fatura (funcionalidade exclusiva).
+* Boletos registrados conforme especificação da FEBRABAN. Baixa de pagamentos automática.
+* Emissão de PIX de forma simplificada (com retorno automático).
+* Emita boletos bancários direto do seu WHMCS.
+##
+* [Funcionalidades](#funcionalidades)
+* [Como instalar](#instalação)
+* [Como configurar](#configuração)
+* [Solicitação de suporte e novas funcionalidades](#solicitação-de-suporte-e-novas-funcionalidades)
 
-Emita boletos bancários direto do seu WHMCS.
+## Funcionalidades
+### Funcionalidades gerais para boleto e PIX
+* **Taxa percentual**: porcertagem aplicada ao valor da fatura por usar o PagHiper.
+* **Taxa fixa**: valor, em reais, somado ao valor da fatura por usar o PagHiper.
+* **Exibe ou não a frase fixa**: configurada no painel, no site do PagHiper
+* **Valor máximo para pagamento**: valor máximo para realizar pagamento por boleto/PIX.
+* **Valor mínimo para pagamento**: valor mínimo para realizar pagamento por boleto/PIX.
+* **Isentar de taxas**: não aplicar taxas (Taxa percentual + Taxa fixa) caso o valor da fatura seja maior ou igual ao definido.
+### Funcionalidades para PIX
+* **Desconto por pagto. realizado via PIX**: percentual retirado do valor da fatura, caso o pagamento ocorra por PIX.
+#### Desconto por critério
+* **Critério do desconto**: quando aplicar o desconto acima? Atualmente, o módulo suporta o critério "Apenas para novos serviços".
+* **Porcentagem do desconto por critério**: percentual retirado do valor da fatura caso o critério acima se for atendido.
+### Funcionalidades para boleto
+* **Abrir boleto ao abrir fatura**: gera o boleto e o abre automaticamente quando a página de fatura é acessada.
+* **Tolerância para pagto**: número máximo de dias em que o boleto poderá ser pago após o vencimento.
+* **Vencimento padrão para boletos emitidos**: escolha a quantidade de dias para o vencimento de boletos reemitidos (para faturas ja vencidas).
+* **Percentual da multa por atraso (%)**: o percentual máximo autorizado é de 2%, de acordo artigo 52, parágrafo primeiro do Código de Defesa do Consumidor, Lei 8.078/90.
+* **Juros proporcional**: aplica 1% de juros máximo ao mês, esse percentual será cobrado proporcionalmente aos dias de atraso. Dividindo 1% por 30 dias = 0,033% por dia de atraso.
+#### **Desconto por pagamento antecipado**
+* **Qtde. de dias para aplicação de desconto**: número de dias em que o pagamento pode ser realizado com antecedência recebendo o desconto extra.
+* **Desconto por pagto. antecipado**: percentual do desconto que será aplicado caso o pagamento ocorra de forma antecipada.
+* **Gerar boletos para todos os pedidos?**: automaticamente gera boletos para todos os pedidos criados, independentemente do gateway de pagamento selecionado.
+* **Validar campos de CPF/CNPJ no checkout?**: fornece opções para validar ou o CPF e o CNPJ, ou apenas um dos dois, ou nenhum.
 
-Boletos registrados conforme especificação da FEBRABAN. Baixa de pagamentos automática.
+## Funcionalidades avançadas
 
-Seu boleto sai direto no PDF anexo a fatura (funcionalidade exclusiva).
+### Anexar PDF do boleto/PIX ao PDF da fatura
+Copie e cole o código abaixo no início do arquivo `invoicepdf.tpl` do seu tema.
 
-* **Versão mais Recente:** 2.5.0
-* **Requisitos:** cURL e JSON ativado.
-* **Compatibilidade:** WHMCS 8.X, PHP 7.x., PHP 8.1, Mod_rewrite opcional
+```php
+<?php include dirname(__FILE__).'/../../modules/gateways/paghiper/inc/helpers/attach_pdf_slip.php'; ?>
+```
 
+### inserir código PIX e linha digitável de boletos a e-mails
 
-# Como Instalar
+Para essa funcionalidade, edite seu template de e-mail `no menu superior, vá com o mouse sobre a chave de fenda > clique em Opções > Pesquise por "modelos > Procure e abra o modelo que deseja implementar a funcionalidade"`.
 
-1. Crie sua conta na PagHiper [clique aqui para saber como](https://github.com/paghiper/whmcs/wiki/Como-criar-seu-cadastro-na-PagHiper).
+Você pode usar dois campos de mesclagens, um para boleto e outro para PIX, respectivamente: `{$linha_digitavel}` e `{$codigo_pix}`. Basta inserí-los nos templates de comunicação de e-mail nos locais desejados.
 
-2. Baixe o gateway da **PagHiper**, extraia o conteúdo e faça upload das pastas includes e modules para a raíz da sua instalação do WHMCS
+## Como instalar e configurar
+### Instalação
 
-3. Dentro da área administrativa do seu WHMCS, vá em: Setup > Payments > Payment Gateways (em inglês) ou Opções > Pagamentos > Portais para Pagamento
+1. Crie sua conta na PagHiper: [clique aqui para saber como criar](https://www.paghiper.com/duvidas/como-se-cadastrar-no-paghiper/).
 
-4. Após, va na aba “All Payment Gateways” ou "Todos os Portais de Pagamento" e procure pelo modulo de nome: “PagHiper Boleto” e clique em cima.
+2. Baixe a última versão do gateway, [clicando aqui](https://github.com/LinkNacional/whmcs-boleto-pix/releases/latest/download/whmcs-boleto-pix.zip).
 
-5. Será exibida uma pagina semelhante a que se encontra na figura abaixo. Basta configurar com suas credenciais.
+3. Extraia o conteúdo do .zip baixado e faça upload das pastas `includes` e `modules` para a raíz da sua instalação do WHMCS.
 
-6. Repita o processo para a configuração do PIX:
-Na aba “All Payment Gateways” ou "Todos os Portais de Pagamento" e procure pelo modulo de nome: “PagHiper PIX” e clique em cima.
+4. Dentro da área administrativa do seu WHMCS: `no menu superior, vá com o mouse sobre a chave de fenda > clique em Apps & Integrations > Pesquise por "PagHiper"`
+Após alguns segundos, as opções para `PagHiper Boleto` e `PagHiper PIX` irão aparecer. Clique sobre elas para ativá-las.
 
-7. Será exibida uma pagina semelhante a que se encontra na figura abaixo. Basta configurar com suas credenciais.
+### Configuração
 
-8. Adicione o texto abaixo no arquivo invoicepdf.tpl do seu tema, para anexar boletos e códigos PIX ao PDF das faturas (opcional)
+5. Para configurar, `passe o mouse sobre a chave de fenda > Clique em "Opções" > Pesquise por "gateways" > Procure pelo módulo PagHiper` que você ativou e clique sobre ele para configurá-lo.
 
-```<?php include dirname(__FILE__).'/../../modules/gateways/paghiper/inc/helpers/attach_pdf_slip.php'; ?>```
+6. **Preencha os campos essenciais para o funcionamento do gateway**: email, API key, token e ID do custom field contendo CPF/CNPJ.
 
-9. Para inserir código PIX e linha digitável de boletos, edite seu template de e-mail em Opções (Setup) > Modelos de e-mail (E-mail templates). Você pode usar dois campos de mesclagens, um para boleto e outro para PIX, respectivamente: {$linha_digitavel} e {$codigo_pix}. Basta inserí-los nos templates de comunicação de e-mail nos locais desejados.
+## Solicitação de suporte e novas funcionalidades
 
-Se tiver dúvidas sobre esse processo, acesse nosso [guia de configuração de plugin](https://github.com/paghiper/whmcs/wiki/Configurando-o-plugin-no-seu-WHMCS)
+Faça a solicitação [clicando aqui](https://github.com/LinkNacional/whmcs-boleto-pix/issues/new) para abrir uma nova issue.
+
+Adicione um título, resumindo o problema e descreve o problema, se possível detalhando com erros e com prints.
 
 # Licença
 
