@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('WHMCS')) {
+    die('This file cannot be accessed directly');
+}
+
 require_once dirname(__FILE__) . '/../../modules/gateways/paghiper/inc/helpers/gateway_functions.php';
 
 function paghiper_getClientDetails($vars, $gateway_config)
