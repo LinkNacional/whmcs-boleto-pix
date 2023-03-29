@@ -1,3 +1,6 @@
+## 2.5.1 - 2023/03/29
+- adicionar verificação para razão social
+- adicionar verificação de acesso direto em validate_paghiper_taxid.php
 
 ## 2.5.0 - 2023/03/07
 

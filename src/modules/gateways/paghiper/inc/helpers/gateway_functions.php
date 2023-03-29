@@ -769,6 +769,7 @@ function generate_paghiper_billet($invoice, $params)
                 $query->execute();
                 $result = $query->fetch(\PDO::FETCH_BOTH);
 
+                $result = is_array($result) ? $result : [];
                 $razaosocial_val = trim(array_shift($result));
             }
 
