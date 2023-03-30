@@ -22,6 +22,7 @@ Uma descrição clara e concisa do que é o bug.
 ## Informação do sistema
 - PHP: [ex. 8.1]
 - WHMCS: [ex. 8.6.1]
+- Versão do módulo [ex. 2.5.0]
 
 ## Passos para reproduzir
 Etapas para reproduzir o comportamento:
