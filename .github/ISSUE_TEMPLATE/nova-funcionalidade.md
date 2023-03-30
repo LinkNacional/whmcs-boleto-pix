@@ -1,6 +1,6 @@
 ---
 name: Nova funcionalidade
-about: Suggest an idea for this project
+about: Sugira uma ideia para este projeto
 title: ''
 labels: enhancement
 assignees: ''
@@ -9,7 +9,7 @@ assignees: ''
 
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Sugira uma ideia para este projeto
 title: "[FEATURE]"
 labels: enhancement
 assignees: ''

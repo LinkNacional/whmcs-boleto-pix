@@ -1,6 +1,6 @@
 ---
 name: Reportar bug
-about: Create a report to help us improve
+about: Crie um relatório para nos ajudar a melhorar
 title: ''
 labels: bug
 assignees: ''
@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Reportar bug
+about: Crie um relatório para nos ajudar a melhorar
 title: "[BUG]"
 labels: bug, help wanted
 assignees: ''
