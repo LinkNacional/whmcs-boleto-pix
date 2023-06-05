@@ -1,8 +1,22 @@
-## 2.5.1 - 2023/03/29
-- adicionar verificação para razão social
-- adicionar verificação de acesso direto em validate_paghiper_taxid.php
+## 2.5.3 - 05/06/23
 
-## 2.5.0 - 2023/03/07
+`Bugs resolvidos`
+
+- Corrigir bug ao cancelar fatura quando gateway "paghiper" está desativado
+
+## 2.5.2 - 29/03/23
+
+`Bugs resolvidos`
+
+- Adicionar verificação para razão social
+- Adicionar verificação de acesso direto em validate_paghiper_taxid.php
+
+## 2.5.1 - 20/03/23
+- Remover código de log
+- Adicionar whmcs.json
+- Aprimorar documentação no README
+
+## 2.5.0 - 07/03/23
 
 `Novas funcionalidades`
 
@@ -12,7 +26,7 @@
 `Bugs resolvidos`
 * Arquivo attach_pdf_slip.php gerando erros em lugares do WHMCS.
 
-## 2.4.2 - 2023/01/10
+## 2.4.2 - 10/01/23
 
 `Bugs resolvidos`
 
@@ -24,14 +38,14 @@
 
 * Mais dados para debug nos Logs de Portais de Pagamento
 
-## 2.4.1 - 2023/01/09
+## 2.4.1 - 09/01/23
 
 `Bugs resolvidos`
 
 * Emissão falhava ao configurar o gateway com um user admin inválido (função de fallback falhava)
 * Mensagem "Table exists/Table does not exist" aparecendo de maneira intermitente
 
-## 2.4 - 2023/01/09
+## 2.4 - 09/01/23
 
 `Bugs resolvidos`
 
@@ -44,7 +58,7 @@
 * Queries convertidas para uso da classe Capsule (ao invés de mysqli)
 
 
-## 2.3 - 2022/06/20
+## 2.3 - 20/06/22
 
 `Bugs resolvidos`
 
@@ -64,7 +78,7 @@
 * Refatoração e melhor eficiência de código
 
 
-## 2.2.1 - 2021/06/17
+## 2.2.1 - 17/06/21
 
 `Bugs resolvidos`
 
@@ -72,7 +86,7 @@
 * Crash ao marcar pedido como pago ou cancelado via painel
 * Conciliação (adição de taxa ou desconto a fatura) impedindo a baixa
 
-## 2.2 - 2021/05/27
+## 2.2 - 27/05/21
 
 `Melhorias implementadas`
 
@@ -96,7 +110,7 @@
 * Warning de operador ternário removido
 
 
-## 2.1 - 2020/12/18
+## 2.1 - 18/12/20
 
 `Melhorias implementadas`
 
@@ -112,7 +126,7 @@
 * Em alguns casos, o campo de nome era utilizado na emissão do boleto, mesmo com CNPJ do cliente informado
 * Só exibimos boleto e PIX para usuários com moeda em
 
-## 2.0.3 - 2020/01/03
+## 2.0.3 - 03/01/20
 
 `Melhorias implementadas`
 
@@ -123,7 +137,7 @@
 * PDF de fatura mostrava boleto em branco de maneira intermitente
 * Pagamentos duplicados em alguns ambientes
 
-## 2.0.2 - 2019/11/14
+## 2.0.2 - 14/11/19
 
 `Melhorias implementadas`
 
@@ -133,27 +147,27 @@
 * Novo texto descritivo para a multa proporcional no back-end
 * Refatoração geral, redução do número de queries e mais
 
-## 2.0.1.3 - 2019/10/14
+## 2.0.1.3 - 14/10/19
 
 `Bugs resolvidos`
 
 * Conciliação de multa/desconto impedia baixa das faturas como esperado no WHMCS v7.8
 
-## 2.0.1.2 - 2019/05/20
+## 2.0.1.2 - 20/05/19
 
 `Bugs resolvidos`
 
 * Boleto não era resgatado caso taxa personalizada estivesse sendo aplicada
 * Multa fatorada e descrição fixa não funcionavam em circunstâncias específicas
 
-## 2.0.1.1 - 2019/02/09
+## 2.0.1.1 - 09/02/19
 
 `Bugs resolvidos`
 
 * Boletos sendo emitidos para todas as faturas, independente do método de pagamento
 * Possível erro 500 causado pelo invoicepdf.tpl (Adicionada tag de fechamento do php)
 
-## 2.0.1 - 2019/02/08
+## 2.0.1 - 08/02/19
 
 `Melhorias`
 
@@ -171,7 +185,7 @@
 * Melhorada a lógica de busca de boletos emitidos (para faturas vencidas)
 * Novo método de formação de URL de retorno
 
-## 2.0 - 2019/02/01
+## 2.0 - 01/02/19
 
 `Novas funcionalidades`
 
@@ -197,7 +211,7 @@
 * Compatibilidade com WHMCS 7.5
 * Erro ao emitir/visualizar boletos através de uma sub-conta
 
-## 1.2.1b - 2019/01/26
+## 1.2.1b - 26/01/19
 
 `Melhorias e novidades`
 
@@ -207,7 +221,7 @@
 
 * Coluna de valores estava sendo criada como FLOAT, causando erro nas queries em algumas versões do MySQL. Boletos são reutilizados corretamente agora.
 
-## 1.2.1 - 2019/01/23
+## 1.2.1 - 23/01/19
 
 `Melhorias e novidades`
 
@@ -217,7 +231,7 @@
 * Remoção da "integração avançada"
 * Preparação para implementação de linha digitável e boleto anexo no e-mail da fatura
 
-## 1.2 - 2019/01/20
+## 1.2 - 20/01/19
 
 `Melhorias e novidades`
 
@@ -233,13 +247,13 @@
 * Problema nas queries de atualização da tabela mod_paghiper
 * Erro ao emitir/visualizar boletos através de uma sub-conta
 
-## 1.121 - 2017/09/30
+## 1.121 - 30/09/17
 
 `Bugs e correções`
 
 * Corrigido erro na formação da URL para recebimento de retorno
 
-## 1.12 - 2017/05/03
+## 1.12 - 03/05/17
 
 `Melhorias e novidades`
 
@@ -252,14 +266,14 @@
 * URL do sistema não era retornada caso o WHMCS estivesse instalado em subdiretório
 * Caracteres nos nomes de campos personalizados vinham sem HTML entities
 
-## 1.11 - 2017/04/20
+## 1.11 - 20/04/17
 
 `Bugs e correções`
 
 * Problemas relacionados ao checkout transparente
 * Omissão de CPF/CNPJ
 
-## 1.1 - 2017/04/13
+## 1.1 - 13/04/17
 
 `Melhorias e novidades`
 
