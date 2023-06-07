@@ -16,7 +16,7 @@ function paghiper_pix_config($params = null)
             <table>
                 <tbody>
                     <tr>
-                        <td>Versão <h2 style='font-weight: bold; margin-top: 0px; font-size: 300%;'>2.5.1</h2></td>
+                        <td>Versão <h2 style='font-weight: bold; margin-top: 0px; font-size: 300%;'>2.5.3</h2></td>
                     </tr>
                 </tbody>
             </table>

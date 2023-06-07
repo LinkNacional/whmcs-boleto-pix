@@ -758,10 +758,6 @@ function generate_paghiper_billet($invoice, $params)
             }
 
             if (empty($razaosocial_val)) {
-                if (isset($razaosocial) && !empty($razaosocial) && isset($cnpj) && !empty($cnpj)) {
-                    $razaosocial_val = trim(array_shift(mysql_fetch_array(mysql_query("SELECT value FROM tblcustomfieldsvalues WHERE relid = '$client_id' and fieldid = '$razaosocial'"))));
-                }
-
                 $sql = "SELECT value FROM tblcustomfieldsvalues WHERE relid = '$client_id' and fieldid = '$razaosocial'";
                 $query = Capsule::connection()
                     ->getPdo()
