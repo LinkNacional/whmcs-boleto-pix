@@ -99,6 +99,5 @@ function paghiper_cancel_slip_or_pix($vars)
     curl_close($curlRequest);
 }
 
-//add_hook('AddInvoicePayment', 1, 'paghiper_cancel_paghiper_slips');
 add_hook('InvoiceCancelled', 1, 'paghiper_cancel_slip_or_pix');
 add_hook('InvoicePaid', 1, 'paghiper_cancel_slip_or_pix');
