@@ -1,4 +1,4 @@
-# WHMCS - Módulo de PIX e Boleto PagHiper
+# WHMCS PIX Gateway de Pagamento para PIX e Boleto grátis
 
 Compatível à partir do PHP 7.4, PHP 8.1 e WHMCS 8. Saiba mais em: [WHMCS PIX](https://www.linknacional.com.br/whmcs/gateways/pix/)
 
