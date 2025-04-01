@@ -1,6 +1,6 @@
 # WHMCS - Módulo de PIX e Boleto PagHiper
 
-Compatível à partir do PHP 7.4, PHP 8.1 e WHMCS 8. Saiba mais em: [https://www.linknacional.com.br/whmcs/gateways/pix/](WHMCS PIX)
+Compatível à partir do PHP 7.4, PHP 8.1 e WHMCS 8. Saiba mais em: [WHMCS PIX](https://www.linknacional.com.br/whmcs/gateways/pix/)
 
 * Seu boleto sai direto no PDF anexo a fatura (funcionalidade exclusiva).
 * Boletos registrados conforme especificação da FEBRABAN. Baixa de pagamentos automática.
