@@ -12,7 +12,6 @@ function paghiper_get_customfield_id()
             ->prepare($sql);
 
     if (!$query->execute()) {
-        var_dump($e->getMessage());
         return '<br><br>Erro geral no banco de dados';
     }
 
@@ -116,11 +115,8 @@ function paghiper_convert_to_numeric($str)
 
 function paghiper_query_scape_string($string)
 {
-    if (function_exists('mysql_real_escape_string')) {
-        return mysql_real_escape_string($string);
-    }
-
-    return mysql_escape_string($string);
+    // A função original usava mysql_real_escape_string que não existe mais no PHP 8
+    return addslashes($string);
 }
 
 function paghiper_apply_custom_taxes($amount, $GATEWAY, $params = null)
@@ -217,19 +213,16 @@ function paghiper_is_valid_cnpj($cnpj)
 
 function paghiper_check_if_subaccount($user_id, $email, $invoice_userid)
 {
-    $query = "SELECT userid, id, email, permissions, invoiceemails FROM tblcontacts WHERE userid = '$user_id' AND email = '$email' LIMIT 1";
-    $result = mysql_query($query);
-    $user = mysql_fetch_array($result);
-    $sql = "SELECT userid, id, email, permissions, invoiceemails FROM tblcontacts WHERE userid = '$user_id' AND email = '$email' LIMIT 1";
-    $query = Capsule::connection()
-        ->getPdo()
-        ->prepare($sql);
-    $query->execute();
-    $user = $query->fetch(\PDO::FETCH_BOTH);
+    $sql = "SELECT userid, id, email, permissions, invoiceemails FROM tblcontacts WHERE userid = :user_id AND email = :email LIMIT 1";
+    $query = Capsule::connection()->getPdo()->prepare($sql);
+    $query->execute(['user_id' => $user_id, 'email' => $email]);
+    $user = $query->fetch(\PDO::FETCH_ASSOC);
 
-    $allow_invoices = ((strpos($user['permissions'], 'invoices') || $user['invoiceemails'] == 1) && $invoice_userid == $user['userid'] ? true : false);
-    if ($allow_invoices) {
-        return $user['userid'];
+    if ($user) {
+        $allow_invoices = ((strpos($user['permissions'], 'invoices') !== false || $user['invoiceemails'] == 1) && $invoice_userid == $user['userid']);
+        if ($allow_invoices) {
+            return $user['userid'];
+        }
     }
 
     return false;
@@ -247,7 +240,11 @@ function paghiper_print_screen($ico, $title, $message, $conf = null)
     $pix_emv = ($conf && array_key_exists('pix_emv', $conf)) ? $conf['pix_emv'] : null;
     $payment_value = ($conf && array_key_exists('payment_value', $conf)) ? $conf['payment_value'] : null;
 
-    $gateway_configs = getGatewayVariables('paghiper_pix');
+    try {
+        $gateway_configs = getGatewayVariables('paghiper_pix');
+    } catch (\Exception $e) {
+        $gateway_configs = [];
+    }
     $disconto_pix_config = isset($gateway_configs['disconto_pagamento_pix']) ? $gateway_configs['disconto_pagamento_pix'] : '';
 
     if ($is_pix) {
@@ -688,7 +685,13 @@ function generate_paghiper_billet($invoice, $params)
             }
         } else {
             // Se simples, pegamos somente o que temos
-            $cpf_cnpj = paghiper_convert_to_numeric(trim(array_shift(mysql_fetch_array(mysql_query("SELECT value FROM tblcustomfieldsvalues WHERE relid = '$client_id' and fieldid = '$cpfcnpj'")))));
+            //$cpf_cnpj = paghiper_convert_to_numeric(trim(array_shift(mysql_fetch_array(mysql_query("SELECT value FROM tblcustomfieldsvalues WHERE relid = '$client_id' and fieldid = '$cpfcnpj'")))));
+			// Se simples, pegamos somente o que temos (Corrigido para PHP 8)
+            $sql = "SELECT value FROM tblcustomfieldsvalues WHERE relid = '$client_id' and fieldid = '$cpfcnpj'";
+            $query = Capsule::connection()->getPdo()->prepare($sql);
+            $query->execute();
+            $result = $query->fetch(\PDO::FETCH_ASSOC);
+            $cpf_cnpj = paghiper_convert_to_numeric(trim($result['value'] ?? ''));
         }
     }
 
@@ -889,7 +892,8 @@ function generate_paghiper_billet($invoice, $params)
 
             echo paghiper_print_screen($ico, $title, $message);
             logTransaction($GATEWAY['name'], ['json' => $json, 'query' => $sql, 'query_result' => $query, 'exception' => $e], 'Não foi possível inserir a transação no banco de dados. Por favor entre em contato com o suporte.');
-            exit();
+            logTransaction($gateway_settings['name'], ['json' => $json, 'query' => $sql, 'query_result' => $query], 'Não foi possível inserir a transação no banco de dados. Por favor entre em contato com o suporte.');
+			exit();
         }
 
         if ($return_json) {
